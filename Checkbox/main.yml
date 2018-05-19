@@ -1,0 +1,42 @@
+---
+
+- name: Create Droplet
+  hosts:
+    - localhost
+  roles:
+    - Droplet
+
+- name: Refresh Inventory
+  hosts:
+    - localhost
+  tasks:
+    - meta: refresh_inventory
+
+- name: Setup Jenkins
+  hosts:
+    - main
+  roles:
+    - Jenkins
+  become: yes
+  gather_facts: no
+
+- name: Create Checkbox job
+  hosts:
+    - main
+  roles:
+    - Checkbox
+  become: yes
+  gather_facts: no
+
+- name: Create Proxy Droplet
+  hosts:
+    - localhost
+  roles:
+    - Proxy
+
+- name: Create Police Droplet
+  hosts:
+    - localhost
+  roles:
+    - Police
+...
